@@ -1,25 +1,27 @@
-import express from "express";
-import dotenv from 'dotenv'
-import cors from 'cors'
-import colors from 'colors'
-import connectDB from "./config/db";
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import colors from 'colors';
+import connectDB from './config/db';
+import errorMiddleware from './middlewares/errorHandler';
 
 // configure colors
 colors.enable();
 
 const app = express();
-dotenv.config()
+dotenv.config();
 
 // connect to DB
-connectDB()
+connectDB();
 
 // MIDDLEWARES
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT;
 
-
+//global Error Handler
+app.use(errorMiddleware);
 
 app.listen(PORT, () =>
   console.log(`App running on PORT ${PORT}`.underline.cyan.bold)
