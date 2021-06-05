@@ -1,9 +1,11 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import colors from 'colors';
 import connectDB from './config/db';
 import errorMiddleware from './middlewares/errorHandler';
+import fileRoute from './routes/fileRoute';
+import cloudinaryConfig from './utils/cloudinary';
 
 // configure colors
 colors.enable();
@@ -14,11 +16,18 @@ dotenv.config();
 // connect to DB
 connectDB();
 
+// configure cloudinary
+cloudinaryConfig()
+
 // MIDDLEWARES
 app.use(cors());
 app.use(express.json());
+//app.use(urlencoded({extended: true}))
 
 const PORT = process.env.PORT;
+
+// Mount Routes
+app.use('/api/files', fileRoute);
 
 //global Error Handler
 app.use(errorMiddleware);
