@@ -6,21 +6,21 @@ import connectDB from './config/db';
 import errorMiddleware from './middlewares/errorHandler';
 import fileRoute from './routes/fileRoute';
 import cloudinaryConfig from './utils/cloudinary';
-
+const app = express();
 // configure colors
 colors.enable();
+app.use(cors({ origin: '*' }));
 
-const app = express();
 dotenv.config();
 
 // connect to DB
 connectDB();
 
 // configure cloudinary
-cloudinaryConfig()
+cloudinaryConfig();
 
 // MIDDLEWARES
-app.use(cors());
+
 app.use(express.json());
 //app.use(urlencoded({extended: true}))
 
