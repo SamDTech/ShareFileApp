@@ -3,6 +3,7 @@ import DropZone from "@components/DropZone";
 import RenderFile from "@components/RenderFile";
 import axios from "axios";
 import DownloadFile from "@components/DownloadFile";
+import EmailForm from "@components/EmailForm";
 
 export default function Home() {
   const [file, setFile] = useState(null);
@@ -75,6 +76,7 @@ export default function Home() {
         {downloadLink && (
           <div className="p-2 text-center">
             <DownloadFile downloadLink={downloadLink} />
+            <EmailForm id={id} />
             <button
               onClick={resetComponent}
               className="button px-5 py-2 my-2 bg-gray-900 rounded button w-44 focus:outline-none"

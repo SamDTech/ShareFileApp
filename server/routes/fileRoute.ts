@@ -110,7 +110,7 @@ router.post(
       host: process.env.SENDINBLUE_SMTP_HOST,
       port: process.env.SENDINBLUE_SMTP_PORT,
       secure: false, // true for 465, false for other ports
-      auth: {
+      auth: { 
         user: process.env.SENDINBLUE_SMTP_USER, // generated ethereal user
         pass: process.env.SENDINBLUE_SMTP_PASSWORD, // generated ethereal password
       },
