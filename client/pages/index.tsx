@@ -66,7 +66,7 @@ export default function Home() {
         {file && !downloadLink && (
           <button
             onClick={onClick}
-            className='px-5 py-2 my-2 bg-gray-900 rounded button w-44 focus:outline-none'
+            className='button'
           >
             {uploadState}
           </button>
@@ -77,7 +77,7 @@ export default function Home() {
             <DownloadFile downloadLink={downloadLink} />
             <button
               onClick={resetComponent}
-              className='px-5 py-2 my-2 bg-gray-900 rounded button w-44 focus:outline-none'
+              className='button'
             >
               Upload New File
             </button>
