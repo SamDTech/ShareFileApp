@@ -4,6 +4,7 @@ import multer from "multer";
 import AppError from "../utils/appError";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import File from "../model/file";
+import https from "https";
 
 const router = Router();
 
@@ -66,6 +67,24 @@ router.get(
       sizeInBytes,
       format,
       id,
+    });
+  })
+);
+
+router.get(
+  "/:id/download",
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const file = await File.findById(id);
+
+    if (!file) {
+      return next(new AppError(404, "File not found"));
+    }
+
+    // get the file from cloudinary
+    https.get(file.secureUrl, (fileStream) => {
+      fileStream.pipe(res);
     });
   })
 );

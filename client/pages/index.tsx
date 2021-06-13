@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import DropZone from '@components/DropZone';
-import RenderFile from '@components/RenderFile';
-import axios from 'axios';
-import DownloadFile from '@components/DownloadFile';
+import { useState } from "react";
+import DropZone from "@components/DropZone";
+import RenderFile from "@components/RenderFile";
+import axios from "axios";
+import DownloadFile from "@components/DownloadFile";
 
 export default function Home() {
   const [file, setFile] = useState(null);
   const [id, setId] = useState(null);
   const [downloadLink, setDownloadLink] = useState(null);
   const [uploadState, setUploadState] =
-    useState<'Uploading' | 'Upload failed' | 'Uploaded' | 'Upload'>('Upload');
+    useState<"Uploading" | "Upload failed" | "Uploaded" | "Upload">("Upload");
 
   const onClick = async () => {
-    if (uploadState === 'Uploading') return;
-    setUploadState('Uploading');
+    if (uploadState === "Uploading") return;
+    setUploadState("Uploading");
     let formData = new FormData();
 
-    formData.append('myFile', file);
+    formData.append("myFile", file);
 
     try {
       const { data } = await axios({
-        method: 'post',
+        method: "post",
         data: formData,
-        url: '/api/files/upload',
+        url: "/api/files/upload",
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
@@ -32,7 +32,7 @@ export default function Home() {
       setDownloadLink(data.downloadPageLink);
     } catch (error) {
       console.log(error.response.data);
-      setUploadState('Upload failed');
+      setUploadState("Upload failed");
     }
   };
 
@@ -42,11 +42,11 @@ export default function Home() {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <h1 className='my-4 text-3xl font-medium'>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="my-4 text-3xl font-medium">
         Got a File? Share It Like Fake News
       </h1>
-      <div className='flex flex-col items-center justify-center bg-gray-800 shadow-xl w-96 rounded-xl'>
+      <div className="flex flex-col items-center justify-center bg-gray-800 shadow-xl w-96 rounded-xl">
         {!downloadLink && <DropZone setFile={setFile} />}
 
         {/* Render the file */}
@@ -54,7 +54,7 @@ export default function Home() {
         {file && (
           <RenderFile
             file={{
-              format: file.type.split('/')[1],
+              format: file.type.split("/")[1],
               name: file.name,
               sizeInBytes: file.size,
             }}
@@ -66,18 +66,18 @@ export default function Home() {
         {file && !downloadLink && (
           <button
             onClick={onClick}
-            className='button'
+            className="button px-5 py-2 my-2 bg-gray-900 rounded button w-44 focus:outline-none"
           >
             {uploadState}
           </button>
         )}
 
         {downloadLink && (
-          <div className='p-2 text-center'>
+          <div className="p-2 text-center">
             <DownloadFile downloadLink={downloadLink} />
             <button
               onClick={resetComponent}
-              className='button'
+              className="button px-5 py-2 my-2 bg-gray-900 rounded button w-44 focus:outline-none"
             >
               Upload New File
             </button>

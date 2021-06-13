@@ -2,8 +2,4 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@layer components {
-  .button {
-    @apply px-5 py-2 my-2 bg-gray-900 rounded button w-44 focus:outline-none;
-  }
-}
+
